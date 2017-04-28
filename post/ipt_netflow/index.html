@@ -1,0 +1,187 @@
+    <!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Grioriy Korzhuk">
+		<meta name="description" content="About IT">
+		<meta name="generator" content="Hugo 0.21-DEV" />
+		<title>ipt_netflow и его фризы &middot; Geeque Blog</title>
+		<link rel="shortcut icon" href="http://blog.geeque.ru/images/favicon.ico">
+		<link rel="stylesheet" href="http://blog.geeque.ru/css/style.css">
+		<link rel="stylesheet" href="http://blog.geeque.ru/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="http://blog.geeque.ru/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://blog.geeque.ru/index.xml" rel="alternate" type="application/rss+xml" title="Geeque Blog" />
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://blog.geeque.ru/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+
+	
+	<a class="cta" href="http://blog.geeque.ru/index.xml">RSS</a>
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        ipt_netflow и его фризы
+                    </h1>
+                    <h2 class="headline">
+                    Apr 28, 2017 11:56
+                    · 398 words
+                    · 2 minutes read
+                      <span class="tags">
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    <p>В работе с этим модулем выяснилось, что при некоторых условиях (похоже, некорректное завершение слушающего процесса, но четких причин пока не выяснил), что он перестает отгружать статистику по своему сокету.
+Проявляется это следующим образом:</p>
+
+<p><strong>Нормальное состояние ipt_netflow:</strong></p>
+
+<pre><code>Flows: active 317 (peak 1403 reached 0d5h31m ago), mem 27K
+Hash: size 8192 (mem 64K), metric 1.0, 1.0, 1.0, 1.0. MemTraf: 9476 pkt, 2642 K (pdu 73, 12534).
+Timeout: active 1800, inactive 15. Maxflows 2000000
+Rate: 419646 bits/sec, 242 packets/sec; Avg 1 min: 422334 bps, 185 pps; 5 min: 530004 bps, 185 pps
+cpu#  stat: , sock: , traffic: , drop:
+Total stat: 230598 11701111 643411,    0    0    0    0, sock:   3798 0 78, 5429 K, traffic: 12344522, 7323 MB, drop: 10433296, 6472263 K
+cpu0  stat: 230598 11701111 643411,    0    0    0    0, sock:      0 0 0, 0 K, traffic: 12344522, 7323 MB, drop: 10433296, 6472263 K
+cpu1  stat:      0      0      0,    0    0    0    0, sock:   3798 0 78, 5429 K, traffic: 0, 0 MB, drop: 0, 0 K
+sock0: 127.0.0.1:9999, sndbuf 229376, filled 1, peak 1; err: sndbuf reached 0, other 0
+</code></pre>
+
+<p><strong>ipt_netflow с отпавшим сокетом:</strong></p>
+
+<pre><code>Flows: active 249 (peak 1403 reached 0d4h14m ago), mem 21K
+Hash: size 8192 (mem 64K), metric 1.0, 1.0, 1.0, 1.0. MemTraf: 7273 pkt, 2099 K (pdu 57, 5697).
+Timeout: active 1800, inactive 15. Maxflows 2000000
+Rate: 226648 bits/sec, 126 packets/sec; Avg 1 min: 326792 bps, 137 pps; 5 min: 453795 bps, 157 pps
+cpu#  stat: , sock: , traffic: , drop:
+Total stat: 181095 10582830 571842,    0    0    0    0, sock:   1415 0 78, 2023 K, traffic: 11154672, 6711 MB, drop: 10433296, 6472263 K
+cpu0  stat: 181095 10582830 571842,    0    0    0    0, sock:      0 0 0, 0 K, traffic: 11154672, 6711 MB, drop: 10433296, 6472263 K
+cpu1  stat:      0      0      0,    0    0    0    0, sock:   1415 0 78, 2023 K, traffic: 0, 0 MB, drop: 0, 0 K
+</code></pre>
+
+<p>К сожалению, выгрузить и загрузить модуль ядра не получится &ndash; получим ошибку:</p>
+
+<pre><code># rmmod ipt_NETFLOW
+ERROR: Module ipt_NETFLOW is in use
+</code></pre>
+
+<p>Избавиться от нее можно лишь выгрузив x_tables, что в случае с роутером вызовет отказ форвардинга &ndash; проще перезагрузить тачку. Выгружать модуль с флагом <code>--force</code> тоже не советую &ndash; после кернел паника машину перезагружать придется точно, проверял:)</p>
+
+<p><strong>Фиксим через передергивание в sysctl:</strong></p>
+
+<pre><code>sysctl -w net.netflow.destination=127.0.0.1:9000
+sysctl -w net.netflow.destination=127.0.0.1:9999
+</code></pre>
+
+<p><strong>Справедливость восстановлена:</strong></p>
+
+<pre><code>sock0: 127.0.0.1:9999, sndbuf 229376, filled 1, peak 1; err: sndbuf reached 0, other 0%
+</code></pre>
+
+                </section>
+            </article>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'blog-zyirs7zgaa'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://www.facebook.com/profile.php?id=1102600595">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://github.com/gkorzhuk">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/633qu3">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © 2017 <i class="fa fa-heart" aria-hidden="true"></i> Grioriy Korzhuk
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="http://blog.geeque.ru/js/jquery-2.2.4.min.js"></script>
+<script src="http://blog.geeque.ru/js/main.js"></script>
+<script src="http://blog.geeque.ru/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-66101066-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+    </body>
+</html>
