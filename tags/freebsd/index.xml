@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Freebsd on Geeque Blog</title>
+    <link>http://blog.geeque.ru/tags/freebsd/</link>
+    <description>Recent content in Freebsd on Geeque Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 20 Dec 2013 14:22:57 +0300</lastBuildDate>
+    
+	<atom:link href="http://blog.geeque.ru/tags/freebsd/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>FreeBSD Jails и работа PgSQL в них</title>
+      <link>http://blog.geeque.ru/post/freebsd_jails_pgsql/</link>
+      <pubDate>Fri, 20 Dec 2013 14:22:57 +0300</pubDate>
+      
+      <guid>http://blog.geeque.ru/post/freebsd_jails_pgsql/</guid>
+      <description>Очередные странности FreeBSD, на этот раз - 9.1-RC1 (не стоит думать, что в релизной версии этого не было бы - проблема намного глубже).
+Итак, имеем сервер на FreeBSD 9 и с десяток Jail-контейнеров в нем. На некоторых из них запущен PostgreSQL. В определенный момент времени (когда появляется сколь-либо заметная нагрузка) сразу несколько воркеров в разных (!) Jail&amp;rsquo;ах падают. В логах мы видим примерно следующее:
+Со стороны Питона: TimeoutError: Unable to get database connection within 0 seconds.</description>
+    </item>
+    
+  </channel>
+</rss>

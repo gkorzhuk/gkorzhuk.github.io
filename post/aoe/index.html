@@ -1,0 +1,191 @@
+    <!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Grioriy Korzhuk">
+		<meta name="description" content="About IT">
+		<meta name="generator" content="Hugo 0.21-DEV" />
+		<title>AoE &middot; Geeque Blog</title>
+		<link rel="shortcut icon" href="http://blog.geeque.ru/images/favicon.ico">
+		<link rel="stylesheet" href="http://blog.geeque.ru/css/style.css">
+		<link rel="stylesheet" href="http://blog.geeque.ru/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="http://blog.geeque.ru/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://blog.geeque.ru/index.xml" rel="alternate" type="application/rss+xml" title="Geeque Blog" />
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://blog.geeque.ru/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+
+	
+	<a class="cta" href="http://blog.geeque.ru/index.xml">RSS</a>
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        AoE
+                    </h1>
+                    <h2 class="headline">
+                    Jan 12, 2014 22:46
+                    · 484 words
+                    · 3 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://blog.geeque.ru/tags/san">SAN</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    <p>В качестве протокола для проброса блочных устройств по сети (иными словами, для SAN-целей) обычно используют три следующих:</p>
+
+<ul>
+<li>iSCSI</li>
+<li>FC / FCP</li>
+<li>FCoE</li>
+<li>AoE</li>
+</ul>
+
+<p><strong>iSCSI:</strong></p>
+
+<p>Является очень распространенным, он используется во многих как программных, так и аппаратных решениях (от <a href="http://ru.qlogic.com/Pages/default.aspx">qLogic</a>, например).
+Работает поверх TCP/IP, в связи с чем нормально маршрутизируется на Layer 3 (но монтировать его через WAN, по понятным причинам, не стоит). По своей сути инкапсулирует SCSI-команды в IP-пакеты. Не требует какого-либо специализированного оборудования для работы  &ndash; достаточно будет уже существующей сети (из опыта использования &ndash; на линках толщиной менее 2Gbps иногда ведет себя не очень приятно, на линках в 100Mbps его лучше вообще не использовать).</p>
+
+<p>Сейчас его рассматривать подробно не буду (скорее всего, статья по нему чуть позже).</p>
+
+<p><strong>FC / FCP:</strong> (Fibre Channel/Fibre Channel Protocol)</p>
+
+<p>Протокол делает то же, что и iSCSI &ndash; инкапсулирует SCSI-команды в пакеты, передаваемые по сети. Отличие в том, что если в случае с iSCSI используется Level3-протокол TCP/IP в качестве транспорта, то здесь используется собственный транспортный протокол - <strong>FCP</strong>(Fibre Channel Protocol)
+Является специализированным протоколом для передачи данных, и для работы с ним нужно использовать отдельное достаточно дорогостоящее оборудование - самый простой хост-адаптер (аналог банального сетевого адаптера в мире Ethernet/TCP/IP) Qlogic QLE2440-CK в реалиях России стоит порядка 28 тысяч рублей, коммутатор Qlogic SB5600Q-16A  на 12 4gbps-портов - 125 тысяч рублей.
+Это автоматически ограничивает масштаб применения решений на FC до систем хранения данных уровня предприятия/дата-центра.
+Обладает высокой производительностью за счет отсутствия оверхеда на транспортном уровне, и, косвенно, за счет того, что большинство решений на его основе - аппаратные.</p>
+
+<p><strong>FCoE:</strong> (Fibre Channel over Ethernet)</p>
+
+<p>К сожалению, перспективы FC в будущем довольно туманны - некоторые программные решения на базе iSCSI сейчас превосходят по производительности хранилища на базе FC, а стоимость их - несравнима.
+Скорее всего, будущее корпоративных сетей за FCoE &ndash; FC, использующем в качестве среды обычные jumbo-фреймы на Ethernet-каналах, и позволяющим делать конвергентные сети на уже существующей базе.
+Сейчас на рынке в свободном доступе уже есть Ethernet-адаптеры на 40Gbps, тестируются адаптеры на 100Gbps &ndash; native-FC сейчас этому противопоставить пока не может ничего.
+Протокол передачи все ещё достаточно новый &ndash; он был подтвержден только в 2009 году, и оборудование, поддерживающее его пока что не представлено достаточно широко.</p>
+
+<p><strong>AoE:</strong> (ATA over Ethernet)</p>
+
+<p>Последний достаточно распространенный протокол - AoE - он инкапсулирует обычные ATA-команды в Ethernet-фреймы. Работает на 2 уровне по OSI, что имеет как плюсы, так и минусы:</p>
+
+<p><strong>Плюсы:</strong>
+ * Нет оверхеда при работе с жесткими дисками и массивами - нет необходимости выполнять конвертацию ATA в SCSI.
+ * Нет оверхеда при передаче данных по сети - используется второй уровень, что позволяет в один и тот же фрейм встроить больший пейлоад.
+ * Нет необходимости использовать дорогостоящее оборудование как в случае с Fiber Channel - сгодятся обычные коммутаторы и Ethernet-линки.
+ * Поддерживается в ядре с 2.6.11
+ * Таргеты и инициаторы есть практически под все ОС.
+<strong>Минусы:</strong>
+ * Маршрутизировть можно только на L2, иными словами - в пределах одного широковещательного домена.</p>
+
+<p>Позже &ndash; больше, на сегодня хватит.</p>
+
+                </section>
+            </article>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'blog-zyirs7zgaa'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://www.facebook.com/profile.php?id=1102600595">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://github.com/gkorzhuk">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/633qu3">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © 2017 <i class="fa fa-heart" aria-hidden="true"></i> Grioriy Korzhuk
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="http://blog.geeque.ru/js/jquery-2.2.4.min.js"></script>
+<script src="http://blog.geeque.ru/js/main.js"></script>
+<script src="http://blog.geeque.ru/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-66101066-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+    </body>
+</html>

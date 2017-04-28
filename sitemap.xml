@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://blog.geeque.ru/post/aoe/</loc>
+    <lastmod>2014-01-12T22:46:27+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.geeque.ru/post/freebsd_jails_pgsql/</loc>
+    <lastmod>2013-12-20T14:22:57+03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.geeque.ru/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.geeque.ru/tags/freebsd/</loc>
+    <lastmod>2013-12-20T14:22:57+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.geeque.ru/</loc>
+    <lastmod>2014-01-12T22:46:27+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.geeque.ru/tags/postgresql/</loc>
+    <lastmod>2013-12-20T14:22:57+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.geeque.ru/post/</loc>
+    <lastmod>2014-01-12T22:46:27+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.geeque.ru/tags/san/</loc>
+    <lastmod>2014-01-12T22:46:27+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.geeque.ru/tags/</loc>
+    <lastmod>2013-12-20T14:22:57+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.geeque.ru/categories/y/</loc>
+    <lastmod>2014-01-12T22:46:27+03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

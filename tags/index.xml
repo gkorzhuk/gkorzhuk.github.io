@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Geeque Blog</title>
+    <link>http://blog.geeque.ru/tags/</link>
+    <description>Recent content in Tags on Geeque Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 20 Dec 2013 14:22:57 +0300</lastBuildDate>
+    
+	<atom:link href="http://blog.geeque.ru/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Freebsd</title>
+      <link>http://blog.geeque.ru/tags/freebsd/</link>
+      <pubDate>Fri, 20 Dec 2013 14:22:57 +0300</pubDate>
+      
+      <guid>http://blog.geeque.ru/tags/freebsd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Postgresql</title>
+      <link>http://blog.geeque.ru/tags/postgresql/</link>
+      <pubDate>Fri, 20 Dec 2013 14:22:57 +0300</pubDate>
+      
+      <guid>http://blog.geeque.ru/tags/postgresql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>San</title>
+      <link>http://blog.geeque.ru/tags/san/</link>
+      <pubDate>Sun, 12 Jan 2014 22:46:27 +0300</pubDate>
+      
+      <guid>http://blog.geeque.ru/tags/san/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
