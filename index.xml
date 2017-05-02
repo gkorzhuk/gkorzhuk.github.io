@@ -6,10 +6,19 @@
     <description>Recent content on Geeque Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 28 Apr 2017 11:56:24 +0300</lastBuildDate>
+    <lastBuildDate>Tue, 02 May 2017 14:24:42 +0300</lastBuildDate>
     
 	<atom:link href="http://blog.geeque.ru/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Отправка данных из Openstack Ceilometer в Graphite</title>
+      <link>http://blog.geeque.ru/post/ceilometer-graphite/</link>
+      <pubDate>Tue, 02 May 2017 14:24:42 +0300</pubDate>
+      
+      <guid>http://blog.geeque.ru/post/ceilometer-graphite/</guid>
+      <description>Openstack позволяет собирать некоторое количество внешних метрик про инстансы, таких как нагрузка на CPU, используемая RAM, IOPS и нагрузка на сеть. По умолчанию для этого используется Ceilometer, с сохраненем в MongoDB. Сейчас есть некоторый альтернативный выбор стораджа в виде gnocchi, у которого под ногами есть честная time-series DB. Но у нас в продакшене уже есть Graphite (возможно еще и Influx появится, но это совсем другая история). Поэтому было бы здорово писать метрики напрямую в Graphite, который уже интегрирован с мониторингом и алертингом.</description>
+    </item>
     
     <item>
       <title>ipt_netflow и его фризы</title>

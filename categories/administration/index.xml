@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Administration on Geeque Blog</title>
+    <link>http://blog.geeque.ru/categories/administration/</link>
+    <description>Recent content in Administration on Geeque Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 02 May 2017 14:24:42 +0300</lastBuildDate>
+    
+	<atom:link href="http://blog.geeque.ru/categories/administration/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Отправка данных из Openstack Ceilometer в Graphite</title>
+      <link>http://blog.geeque.ru/post/ceilometer-graphite/</link>
+      <pubDate>Tue, 02 May 2017 14:24:42 +0300</pubDate>
+      
+      <guid>http://blog.geeque.ru/post/ceilometer-graphite/</guid>
+      <description>Openstack позволяет собирать некоторое количество внешних метрик про инстансы, таких как нагрузка на CPU, используемая RAM, IOPS и нагрузка на сеть. По умолчанию для этого используется Ceilometer, с сохраненем в MongoDB. Сейчас есть некоторый альтернативный выбор стораджа в виде gnocchi, у которого под ногами есть честная time-series DB. Но у нас в продакшене уже есть Graphite (возможно еще и Influx появится, но это совсем другая история). Поэтому было бы здорово писать метрики напрямую в Graphite, который уже интегрирован с мониторингом и алертингом.</description>
+    </item>
+    
+  </channel>
+</rss>

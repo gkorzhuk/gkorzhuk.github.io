@@ -6,9 +6,19 @@
     <description>Recent content in Categories on Geeque Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
+    <lastBuildDate>Tue, 02 May 2017 14:24:42 +0300</lastBuildDate>
     
 	<atom:link href="http://blog.geeque.ru/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Administration</title>
+      <link>http://blog.geeque.ru/categories/administration/</link>
+      <pubDate>Tue, 02 May 2017 14:24:42 +0300</pubDate>
+      
+      <guid>http://blog.geeque.ru/categories/administration/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Y</title>
